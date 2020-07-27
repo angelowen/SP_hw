@@ -1,0 +1,4 @@
+Program 1:
+List all the pid of the child process and the parent process,
+we can see there are 16 pids for this program.
+Therefore,we can make sure that after fork() four times can produce 16 processes.

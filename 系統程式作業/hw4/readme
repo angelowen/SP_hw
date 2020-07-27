@@ -1,0 +1,29 @@
+第一個題目hw4_dir是將資料以遞迴的方式印出，先列印檔案、再列印目錄，
+除了列出當下目錄的資料以外，還遞迴列出其子目錄中的所有內容，
+並依照其檔名的ASCII順序排序
+
+第二個題hw4_inotify是使用 inotify 攔截所有動作，並且顯示在螢幕上，
+inotify可以即時觀測檔案的改變,並回送通知給你,
+而inotify把檔案狀態的變化分為以下十類
+
+1.IN_ACCESS:File was read from.
+2.IN_MODIFY:File was written to.
+3.IN_ATTRIB:File's metadata (inode or xattr) was changed.
+4.IN_CLOSE_WRITE:File was closed (and was open for writing).
+5.IN_CLOSE_NOWRITE:File was closed (and was not open for writing).
+6.IN_OPEN:File was opened.
+7.IN_MOVED_FROM:File was moved away from watch.
+8.IN_MOVED_TO:File was moved to watch.
+9.IN_DELETE File:was deleted.
+10.IN_DELETE_SELF:The watch itself was deleted.
+所以不論讀,寫,開啟,刪除,或attribute改變,都可以從inotify收到通知
+wd	     監控子
+mask	 事件遮罩
+cookie	 用來辨別IN_MOVED_FROM與IN_MOVED_TO事件
+len	name 欄位長度
+name	 觸發該事件的檔案名稱(以上層目錄為基準)
+此外，
+只有當監控對像是一個目錄並且事件與目錄內部相關項目有關，而與目錄本身無關時，才提供name 字段。
+如果IN_MOVED_FROM 事件與相應的IN_MOVED_TO 事件都與被監控的項目有關，
+cookie 就可用於將兩者關聯起來。
+如果事件與目錄有關，則標誌IN_ISDIR 將由內核設置。
